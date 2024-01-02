@@ -1,17 +1,21 @@
 const express = require('express');
 const app = express();
 const connectDB = require('./db/connect');
+const routes = require('./routes/task');
 require('dotenv').config();
-const port = process.env.port || 4000;
+const port = process.env.port || 3000;
 
 // middlewares
 app.use(express.json());
-// app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:true}));
+app.use(express.static('public'));
 
 
-app.get('/',(req,res)=>{
-    res.send(`Hello World!`);
-})
+app.use('/todos ',routes)
+
+// app.get('/',(req,res)=>{
+//     res.send(`Hello World!`);
+// })
 
 
 const start = async ()=>{

@@ -11,18 +11,21 @@ async function fetchTodos() {
         const listItem = document.createElement('li');
         listItem.classList.add('todoItem');
         listItem.innerHTML = `
-          <input type="checkbox" ${todo.completed ? 'checked' : ''} />
-          <span>${todo.task}</span>`;
+          <input type="checkbox" ${todo.Completed ? 'checked' : ''} />
+          <span>${todo.Task}</span>`;
         todoList.appendChild(listItem);
     });
-}
+};
+
 
 // Function to add a new todo
-async function addTodo(event) {
+addTodoForm.addEventListener('submit',async(event)=>{
     event.preventDefault();
 
     const taskInput = document.getElementById('task');
     const task = taskInput.value;
+
+    console.log('Task:', task);
 
     if (task.trim() === '') {
         alert('Task cannot be empty!');
@@ -30,24 +33,20 @@ async function addTodo(event) {
     }
 
     await fetch('http://localhost:3000/todos', {
-        
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            task: task,
-            completed: false,
+            Task:task,
+            Completed: false,
         }),
     });
 
     // Clear the input and fetch updated todos
     taskInput.value = '';
     fetchTodos();
-}
-
-// Event listeners
-addTodoForm.addEventListener('submit', addTodo);
+});
 
 // Initial fetch of todos
 fetchTodos();
