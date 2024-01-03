@@ -11,11 +11,8 @@ app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
 
 
-app.use('/todos ',routes)
+app.use('/',routes);
 
-// app.get('/',(req,res)=>{
-//     res.send(`Hello World!`);
-// })
 
 
 const start = async ()=>{

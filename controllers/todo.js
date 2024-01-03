@@ -12,12 +12,12 @@ const getAllTodos = async(req,res)=>{
 
 
 const createTodo = async(req,res)=>{
-    const {Task, Completed} = todoSchema.create(req.body);
-    
+    const {task, completed} = req.body;
+
     try {
-        const newTodo  = new todoSchema({Task,Completed})
+        const newTodo  = new todoSchema({task,completed})
         await newTodo.save();
-        res.status(201).json({newTodo});
+        res.status(201).json(newTodo);
     } catch (error) {
         res.status(500).json({error:`Internal server Error`})
     }
