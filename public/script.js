@@ -3,7 +3,7 @@ const addTodoForm = document.getElementById('addTodoForm');
 
 // Function to fetch and display todos
 async function fetchTodos() {
-    const response = await fetch('/todos');
+    const response = await fetch(`/todos`);
     const todos = await response.json();
 
     todoList.innerHTML = '';
@@ -13,7 +13,9 @@ async function fetchTodos() {
         listItem.innerHTML = `
           <input type="checkbox" ${todo.completed ? 'checked' : ''} />
           <span>${todo.task}</span>
+          <button onclick="deleteTodo('${todo._id}')">Delete</button>
         `;
+
         todoList.appendChild(listItem);
     });
 }
@@ -30,7 +32,7 @@ async function addTodo(event) {
         return;
     }
 
-    await fetch('/todos', {
+    await fetch(`/todos`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -43,6 +45,19 @@ async function addTodo(event) {
 
     // Clear the input and fetch updated todos
     taskInput.value = '';
+    fetchTodos();
+}
+
+// Function to delete a todo
+async function deleteTodo(todoID) {
+    await fetch(`/todos/${todoID}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+
+    // Fetch updated todos after deletion
     fetchTodos();
 }
 

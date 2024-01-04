@@ -23,4 +23,16 @@ const createTodo = async(req,res)=>{
     }
 }
 
-module.exports = {getAllTodos,createTodo}
+
+const deleteTodo = async(req,res)=>{
+    const todoID = req.params.id;
+
+    try {
+        await todoSchema.findByIdAndDelete(todoID);
+        res.json({ message: 'Todo deleted successfully...' })
+    } catch (error) {
+        res.status(500).json({error:`Internal server Error`})
+    }
+}
+
+module.exports = {getAllTodos,createTodo,deleteTodo}
