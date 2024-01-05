@@ -14,7 +14,7 @@ async function fetchTodos() {
           <input type="checkbox" ${todo.completed ? 'checked' : ''} />
           <span>${todo.task}</span>
           <button onclick="deleteTodo('${todo._id}')">Delete</button>
-          <button onclick="updateTodo('${todo._id}')">Update</button>
+          <button onclick="updateTodo('${todo._id}')">Edit</button>
         `;
 
         todoList.appendChild(listItem);
