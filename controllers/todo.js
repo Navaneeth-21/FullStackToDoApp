@@ -35,4 +35,22 @@ const deleteTodo = async(req,res)=>{
     }
 }
 
-module.exports = {getAllTodos,createTodo,deleteTodo}
+
+const updateTodo = async(req,res)=>{
+    const todoID = req.params.id;
+    const {task} = req.body
+    try {
+        const todo = await todoSchema.findById(todoID);
+        if (todo) {
+            todo.task = task;
+            await todo.save();
+            res.json(todo)
+        } else {
+            res.status(404).json({error:`Todo Not Found`});
+        }
+    } catch (error) {
+        res.status(500).json({error:`Internal server Error`})
+    }
+}
+
+module.exports = {getAllTodos,createTodo,deleteTodo,updateTodo}

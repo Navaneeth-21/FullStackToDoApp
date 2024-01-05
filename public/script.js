@@ -14,6 +14,7 @@ async function fetchTodos() {
           <input type="checkbox" ${todo.completed ? 'checked' : ''} />
           <span>${todo.task}</span>
           <button onclick="deleteTodo('${todo._id}')">Delete</button>
+          <button onclick="updateTodo('${todo._id}')">Update</button>
         `;
 
         todoList.appendChild(listItem);
@@ -59,6 +60,25 @@ async function deleteTodo(todoID) {
 
     // Fetch updated todos after deletion
     fetchTodos();
+}
+
+// Function to update a todo
+async function updateTodo(todoID, currentTask) {
+    const newTask = prompt('Edit Task:',currentTask);
+
+    if (newTask !== null) {
+        await fetch(`/todos/${todoID}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body :JSON.stringify({
+                task: newTask,
+            }),
+        });
+        // Fetch updated todos after updation
+        fetchTodos();
+    }
 }
 
 // Event listeners
