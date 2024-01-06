@@ -14,7 +14,9 @@ A Simple web Application for managing your todos . This Project uses Express.js 
 - **Backend:** Express.js , MongoDB
 - **Frontend:** HTML , CSS , JavaScript
 
+## Screenshot
 
+![Todo App Screenshot](images/Todo-App-Screenshot.png)
 ## Getting Started
 
 ### Prerequisites
